@@ -1,10 +1,33 @@
 app:
-  title: Scaffolded Backstage App
-  baseUrl: http://localhost:3000
-
-  ## NEEDED FOR NEW FRONTEND
+  ######## NEEDED FOR NEW FRONTEND ########
   experimental:
     packages: 'all' # ✨
+
+  routes:
+    bindings:
+      org.catalogIndex: catalog.catalogIndex
+
+  extensions:
+    # Entity page cards
+    - entity-card:catalog/about
+    - entity-card:catalog/labels
+    - entity-card:catalog/links:
+        config:
+          filter: kind:component has:links
+    - entity-card:catalog-graph/relations:
+        config:
+          height: 300
+
+    # Org Plugin
+    - entity-card:org/group-profile
+    - entity-card:org/members-list
+    - entity-card:org/ownership
+    - entity-card:org/user-profile
+
+  ######## END NEEDED FOR NEW FRONTEND ########
+
+  title: Scaffolded Backstage App
+  baseUrl: http://localhost:3000
 
 organization:
   name: My Company
