@@ -21,6 +21,7 @@ import {
 import {createApp} from '@backstage/frontend-app-api';
 import {ScmAuth, ScmIntegrationsApi, scmIntegrationsApiRef} from "@backstage/integration-react";
 import userSettingsPlugin from '@backstage/plugin-user-settings/alpha';
+import techdocsPlugin from "@backstage/plugin-techdocs/alpha";
 
 
 const signInPage = createSignInPageExtension({
@@ -45,6 +46,7 @@ const scmIntegrationApi = createApiExtension({
 const app = createApp({
     features: [
         userSettingsPlugin, /* Needed to see on the left menu bar the settings link */
+        techdocsPlugin, /* Needed to compose, render techdocs, etc */
         createExtensionOverrides({
             extensions: [
                 signInPage,
