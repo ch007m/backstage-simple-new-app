@@ -2,6 +2,10 @@ app:
   title: Scaffolded Backstage App
   baseUrl: http://localhost:3000
 
+  ## NEEDED FOR NEW FRONTEND
+  experimental:
+    packages: 'all' # ✨
+
 organization:
   name: My Company
 
