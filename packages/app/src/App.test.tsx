@@ -1,7 +1,6 @@
 import {renderWithEffects} from '@backstage/test-utils';
-import {createSpecializedApp} from '@backstage/frontend-app-api';
+import { createExtensionTester } from '@backstage/frontend-test-utils';
 import {
-    createExtensionOverrides,
     createPageExtension,
 } from "@backstage/frontend-plugin-api";
 import {render, screen} from "@testing-library/react";
@@ -42,30 +41,23 @@ describe('App', () => {
     });
 
     it('should work using createExtensionOverrides', async () => {
-        const app = createSpecializedApp({
-            features: [
-                createExtensionOverrides({
-                    extensions: [
-                        createPageExtension({
-                            namespace: 'scaffolder',
-                            defaultPath: '/my-create',
-                            loader: async () =>
-                                import('@qshift/plugin-quarkus').then(m =>
-                                    <ScaffolderPage/>
-/*                                    <div data-testid="field-content">
-                                        <m.QuarkusVersionListField/>
-                                    </div>*/
-                                ),
-                        }),
-                    ],
-                }),
-            ],
+
+        const scaffolderPageExtension = createPageExtension({
+            namespace: 'scaffolder',
+            defaultPath: '/my-create',
+            loader: async () =>
+                import('@qshift/plugin-quarkus').then(() =>
+                        <ScaffolderPage/>
+                    /*
+                      <div data-testid="field-content">
+                        <m.QuarkusVersionListField/>
+                      </div>
+                    */
+                ),
         });
 
-        render(app.createRoot());
+        createExtensionTester(scaffolderPageExtension).render();
 
-        await expect(
-            screen.findByText('scaffolder'),
-        ).resolves.toBeInTheDocument();
+        await expect( screen.findByText('scaffolder')).resolves.toBeInTheDocument();
     });
 });
