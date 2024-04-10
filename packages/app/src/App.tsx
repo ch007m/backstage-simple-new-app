@@ -25,7 +25,7 @@ import {ScmAuth, ScmIntegrationsApi, scmIntegrationsApiRef} from "@backstage/int
 import userSettingsPlugin from '@backstage/plugin-user-settings/alpha';
 import techdocsPlugin from "@backstage/plugin-techdocs/alpha";
 import scaffolderPlugin from "@backstage/plugin-scaffolder/alpha";
-import {convertLegacyApp} from "@backstage/core-compat-api";
+import {compatWrapper, convertLegacyApp} from "@backstage/core-compat-api";
 import {ScaffolderFieldExtensions} from "@backstage/plugin-scaffolder-react";
 import {ScaffolderPage} from "@backstage/plugin-scaffolder";
 import {FlatRoutes} from "@backstage/core-app-api";
@@ -75,9 +75,11 @@ const scaffolderPage = createPageExtension({
     routeRef: scaffolderPlugin.routes.root,
     loader: () =>
         import('@qshift/plugin-quarkus').then(m =>
-                <ScaffolderFieldExtensions>
-                    <m.QuarkusVersionListField/>
-                </ScaffolderFieldExtensions>
+                compatWrapper(
+                    <ScaffolderFieldExtensions>
+                       <m.QuarkusVersionListField/>
+                    </ScaffolderFieldExtensions>
+                )
         ),
 });
 
@@ -86,7 +88,6 @@ const scaffolderPage = createPageExtension({
    we use this convertLegacyApp function and pass it as
    features to:  createApp({
    The home screen reports: ERROR 404: PAGE NOT FOUND
- */
 const legacyPlugins = convertLegacyApp(
     <FlatRoutes>
         <Route
@@ -101,6 +102,7 @@ const legacyPlugins = convertLegacyApp(
         />
     </FlatRoutes>,
 );
+*/
 
 
 const app = createApp({
