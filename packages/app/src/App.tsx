@@ -66,6 +66,8 @@ const scmIntegrationApi = createApiExtension({
   DevTool console don't report errors
 
   If we wrap the tags <ScaffolderFieldExtensions> with <ScaffolderPage> then we got as error: App context is not available
+
+  Documentation page: https://backstage.io/docs/frontend-system/architecture/extension-overrides
  */
 const scaffolderPage = createPageExtension({
     namespace: 'scaffolder',
