@@ -25,12 +25,11 @@ import {ScmAuth, ScmIntegrationsApi, scmIntegrationsApiRef} from "@backstage/int
 import userSettingsPlugin from '@backstage/plugin-user-settings/alpha';
 import techdocsPlugin from "@backstage/plugin-techdocs/alpha";
 import scaffolderPlugin from "@backstage/plugin-scaffolder/alpha";
-import {convertLegacyApp, convertLegacyRouteRef} from "@backstage/core-compat-api";
+import {convertLegacyApp} from "@backstage/core-compat-api";
 import {ScaffolderFieldExtensions} from "@backstage/plugin-scaffolder-react";
 import {ScaffolderPage} from "@backstage/plugin-scaffolder";
 import {FlatRoutes} from "@backstage/core-app-api";
 import {Route} from "react-router";
-import {QuarkusVersionListField} from "@qshift/plugin-quarkus";
 
 /*function ScaffolderFieldExtensionsPage() {
     return (
