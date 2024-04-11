@@ -34,6 +34,15 @@ const scaffolderPage = createPageExtension({
 
 When we execute `yarn dev`n, the link `/my-create` appears within the left menu bar but if we click on the link, the screen is white.
 Chrome DevTool console don't report errors like the log on the terminal.
-Unfortunately, the home screen reports: ERROR 404: PAGE NOT FOUND
+
+**Note**: The home screen reports: `ERROR 404: PAGE NOT FOUND` but this is not related to the extension we added here !
 
 **Remark**: If we wrap the tags `<ScaffolderFieldExtensions>` with `<ScaffolderPage>` then we got as error: `App context is not available`
+
+### Investigation
+
+So the question is finally how we can declare such `FieldExtensions` which are next discovered using react outlet: https://github.com/backstage/backstage/blob/master/plugins/scaffolder/src/components/Router/Router.tsx#L110-L112 using new front-end ...
+
+
+
+
