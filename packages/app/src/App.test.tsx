@@ -1,9 +1,9 @@
 import {renderWithEffects} from '@backstage/test-utils';
 import { createExtensionTester } from '@backstage/frontend-test-utils';
 import {
-    createPageExtension,
+    coreExtensionData, createExtension, createPageExtension, createSignInPageExtension,
 } from "@backstage/frontend-plugin-api";
-import {render, screen} from "@testing-library/react";
+import {screen} from "@testing-library/react";
 import React from 'react';
 import {ScaffolderPage} from "@backstage/plugin-scaffolder";
 
@@ -59,5 +59,31 @@ describe('App', () => {
         createExtensionTester(scaffolderPageExtension).render();
 
         await expect( screen.findByText('scaffolder')).resolves.toBeInTheDocument();
+    });
+});
+
+describe('createSignInPageExtension', () => {
+    it('renders a sign-in page', async () => {
+        const SignInPage = createSignInPageExtension({
+            name: 'test',
+            loader: async () => () => <div data-testid="sign-in-page" />,
+        });
+
+        createExtensionTester(
+            createExtension({
+                name: 'dummy',
+                attachTo: { id: 'ignored', input: 'ignored' },
+                output: {
+                    element: coreExtensionData.reactElement,
+                },
+                factory: () => ({ element: <div /> }),
+            }),
+        )
+            .add(SignInPage)
+            .render();
+
+        await expect(
+            screen.findByTestId('sign-in-page'),
+        ).resolves.toBeInTheDocument();
     });
 });
